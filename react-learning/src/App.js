@@ -1,14 +1,29 @@
-import React from 'react';
-import BackwardCounter from './component/BackwardCounter';
-import ForwardCounter from './component/ForwardCounter';
+import React {useState} from 'react';
+
+import MoviesList from './components/MoviesList';
+import './App.css';
 
 function App() {
+  const [movies, setMovies] = useState([]);
+  fetch('https://swapi.dev/api/films')
+  .then((response) => {
+    return response.json();
+  })
+  .then((data) => {
+    setMovies(data.results)
+  })
+}
+
   return (
     <React.Fragment>
-      <ForwardCounter />
-      <BackwardCounter />
+      <section>
+        <button>Fetch Movies</button>
+      </section>
+      <section>
+        <MoviesList movies={dummyMovies} />
+      </section>
     </React.Fragment>
   );
-}
+
 
 export default App;
