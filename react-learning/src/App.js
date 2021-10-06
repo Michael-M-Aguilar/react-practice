@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import Tasks from './components/Tasks';
+import Tasks from './components/Tasks/Tasks';
 import NewTask from './components/NewTask/NewTask';
-import useHttp from '../hooks/use-http';
+import useHttp from './components/hooks/use-http';
 
 function App() {
   const [tasks, setTasks] = useState([])
@@ -16,14 +16,18 @@ function App() {
     setTasks(loadedTasks)
   };
 
-  const { isLoading, error, sendRequest: fetchTasks } = useHttp(
+  const {
+    isLoading,
+    error,
+    sendRequest: fetchTasks,
+  } = useHttp(
     { url: "https://react-http-342f9-default-rtdb.firebaseio.com/tasks.json" },
     transformTasks
   );
 
   useEffect(() => {
     fetchTasks();
-  }, []);
+  }, );
 
   const taskAddHandler = (task) => {
     setTasks((prevTasks) => prevTasks.concat(task));
