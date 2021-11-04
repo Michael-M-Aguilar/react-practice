@@ -38,6 +38,7 @@ const Cart = (props) => {
     });
     setIsSubmitting(false);
     setDidSubmit(true);
+    cartCtx.clearCart();
   };
 
   const cartItems = (
@@ -70,11 +71,11 @@ const Cart = (props) => {
 
   const cartModalContent = (
   <React.Fragment>
-    {cartItems };
+    {cartItems }
     <div className={classes.total}>
       <span>Total Amount</span>
       <span>{totalAmount}</span>
-    </div>;
+    </div>
     {isCheckout && (
       <Checkout onConfirm={submitOrderHandler} onCancel={props.onClose} />
     )}
