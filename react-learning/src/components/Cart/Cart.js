@@ -1,4 +1,4 @@
-import { useContext, useState} from "react";
+import { useContext, useReducer, useState} from "react";
 
 import Modal from "../UI/Modal";
 import CartItem from "./CartItem";
@@ -24,6 +24,16 @@ const Cart = (props) => {
   const orderHandler = () => {
     setIsCheckout(true)
   }
+
+  const submitOrderHandler = (userData) => {
+    fetch("https://react-http-342f9-default-rtdb.firebaseio.com/orders.json", {
+      method: 'POST',
+      body: JSON.stringify({
+        user: userData,
+        orderedItems: cartCtx.items
+      })
+    });
+  };
 
   const cartItems = (
     <ul className={classes["cart-items"]}>
@@ -60,7 +70,7 @@ const Cart = (props) => {
         <span>Total Amount</span>
         <span>{totalAmount}</span>
       </div>
-      {isCheckout && <Checkout onCancel={props.onClose} />}
+      {isCheckout && <Checkout onConfirm={submitOrderHandler} onCancel={props.onClose} />}
       {!isCheckout && modalActions}
     </Modal>
   );
