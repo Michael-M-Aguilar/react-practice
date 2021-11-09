@@ -2,6 +2,7 @@
 import {useSelector, useDispatch} from 'react-redux'
 import { counterActions } from '../store/index';
 import classes from './Counter.module.css';
+
 import { INCREMENT } from '../store/index';
 
 const Counter = () => {
