@@ -22,14 +22,23 @@ const ProductItem = (props) => {
       const exisitingItemIndex = updatedItems.findIndex(
         item => item.id === id
       );
+      updatedItems[exisitingItemIndex] = updatedItem
+    } else {
+      updatedItems.push({
+        id: id,
+        price: price,
+        quantity: 1,
+        totalPrice: price,
+        name: title,
+      });
     }
-    // dispatch(
-    //   cartActions.addItemToCart({
-    //     id,
-    //     title,
-    //     price,
-    //   })
-    // );
+
+    const newCart = {
+      totalQuanitity: newTotalQuantity,
+      items: updatedItems
+    };
+
+    dispatch(cartActions.replaceCart({newCart}));
   };
 
   return (
