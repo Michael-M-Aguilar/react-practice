@@ -10,10 +10,20 @@ function App() {
   const cart = useSelector(state => state.cart);
 
   useEffect(() => {
-    fetch('https://react-http-342f9-default-rtdb.firebaseio.com/.json', {
-      method: 'PUT',
-      body: JSON.stringify(cart),
-    });
+    const sendCartData = async () => {
+      const response = await fetch (
+        'https://react-http-342f9-default-rtdb.firebaseio.com/.json',
+        {
+          method: 'PUT',
+          body: JSON.stringify(cart),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error('Sending cart data failed. Please try again.')
+      }
+        const responseData = await response.json()
+      };
   }, [cart]);
 
   return (
