@@ -18,11 +18,11 @@ const ProductItem = (props) => {
     if (existingItem) {
       const updatedItem = { ...existingItem};
       updatedItem.quantity++;
-      updatedItem.price = updatedItem.price + price;
-      const exisitingItemIndex = updatedItems.findIndex(
-        item => item.id === id
+      updatedItem.totalPrice = updatedItem.totalPrice + price;
+      const existingItemIndex = updatedItems.findIndex(
+        (item) => item.id === id
       );
-      updatedItems[exisitingItemIndex] = updatedItem
+      updatedItems[existingItemIndex] = updatedItem;
     } else {
       updatedItems.push({
         id: id,
@@ -34,11 +34,11 @@ const ProductItem = (props) => {
     }
 
     const newCart = {
-      totalQuanitity: newTotalQuantity,
+      totalQuantity: newTotalQuantity,
       items: updatedItems
     };
 
-    dispatch(cartActions.replaceCart({newCart}));
+    dispatch(cartActions.replaceCart(newCart));
   };
 
   return (
