@@ -44,7 +44,7 @@ const cartSlice = createSlice({
   },
 });
 
-const sendCartData = (cart) => {
+export const sendCartData = (cart) => {
   return async (dispatch) => {
     dispatch(
       uiActions.showNotification({
@@ -68,15 +68,26 @@ const sendCartData = (cart) => {
       }
     };
 
-    await sendRequest();
+    try {
+      await sendRequest();
 
-    dispatch(
+       dispatch(
       uiActions.showNotification({
         status: "Success",
         title: "Success",
         message: "Sent Cart Data Succesfully.",
       })
     );
+    } catch (error) {
+       dispatch(
+         uiActions.showNotification({
+           status: "error",
+           title: "Error!",
+           message: "Sending cart data Failed!",
+         })
+       );
+    };
+
   };
 };
 
